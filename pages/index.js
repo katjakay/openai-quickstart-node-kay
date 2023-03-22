@@ -28,7 +28,6 @@ export default function Home() {
       setResult(data.result);
       setEventInput('');
     } catch (error) {
-      // Consider implementing your own error handling logic here
       console.error(error);
       alert(error.message);
     }
@@ -45,13 +44,13 @@ export default function Home() {
         <h3>Event description</h3>
         <form onSubmit={onSubmit}>
           <input
-            type="text"
             name="event"
             placeholder="Enter an event"
             value={eventInput}
             onChange={(e) => setEventInput(e.target.value)}
           />
-          <input type="submit" value="Generate Description" />
+
+          <button value="Generate Description">Submit</button>
         </form>
         <div className={styles.result}>{result}</div>
       </main>

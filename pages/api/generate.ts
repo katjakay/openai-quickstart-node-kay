@@ -16,6 +16,7 @@ export default async function (req, res) {
     return;
   }
 
+  // Handles error when input field is empty
   const event = req.body.event || '';
   if (event.trim().length === 0) {
     res.status(400).json({
@@ -26,17 +27,19 @@ export default async function (req, res) {
     return;
   }
 
-  //  sends API request to Openai API
+  // Function being called when form is submitted
   try {
     const completion = await openai.createCompletion({
       model: 'text-davinci-003',
       prompt: generatePrompt(event),
-      temperature: 0,
+      temperature: 0.6,
       max_tokens: 100,
       top_p: 1,
       frequency_penalty: 0.2,
       presence_penalty: 0,
     });
+
+    // Response that is stored in result variable
     res.status(200).json({ result: completion.data.choices[0].text });
   } catch (error) {
     // Consider adjusting the error handling logic for your use case
