@@ -5,6 +5,19 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
+// Function that generates the prompt
+function generatePrompt(event) {
+  const capitalizedEvent = event.toUpperCase();
+  return `Suggest an event description using keywords:
+
+Event: filipino party, bring food and good mood!
+Description: Come join us for a fun-filled Filipino party! Bring your favorite Filipino dish to share with everyone and come ready to have a good time. We'll have music, games, and plenty of food to go around. So come with an empty stomach and a good mood, and let's celebrate Filipino culture together!
+Event: sports party, bring shoes, free entrance
+Description: Come join us for a fun sports party! We'll have a variety of sports activities to choose from, so make sure to bring your favorite pair of shoes. The best part? Entrance is free! So come on down and join us for a great time.
+Event: ${capitalizedEvent}
+Description:`;
+}
+
 export default async function (req, res) {
   if (!configuration.apiKey) {
     res.status(500).json({
@@ -55,17 +68,4 @@ export default async function (req, res) {
       });
     }
   }
-}
-
-// Function that generates the prompt
-function generatePrompt(event) {
-  const capitalizedEvent = event.toUpperCase();
-  return `Suggest an event description using keywords:
-
-Event: filipino party, bring food and good mood!
-Description: Come join us for a fun-filled Filipino party! Bring your favorite Filipino dish to share with everyone and come ready to have a good time. We'll have music, games, and plenty of food to go around. So come with an empty stomach and a good mood, and let's celebrate Filipino culture together!
-Event: sports party, bring shoes, free entrance
-Description: Come join us for a fun sports party! We'll have a variety of sports activities to choose from, so make sure to bring your favorite pair of shoes. The best part? Entrance is free! So come on down and join us for a great time.
-Event: ${capitalizedEvent}
-Description:`;
 }
