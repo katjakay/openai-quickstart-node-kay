@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "daisyui": "^2.51.5",
     "init": "^0.1.2",
     "next": "^13.1.1",
     "openai": "^3.1.0",
