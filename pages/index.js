@@ -63,6 +63,7 @@ export default function Home() {
             Submit
           </button>
         </form>
+        <p className="text-blue mt-4">Here's your event description:</p>
         <p className="mt-6">{result}</p>
       </main>
     </div>
