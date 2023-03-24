@@ -1,9 +1,24 @@
 import Head from 'next/head';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function Home() {
   const [eventInput, setEventInput] = useState('');
   const [result, setResult] = useState();
+  const [successCopy, setSuccessCopy] = useState(false);
+  const router = useRouter();
+
+  async function copyToClipboard() {
+    try {
+      await navigator.clipboard.writeText(result);
+      setSuccessCopy(true);
+
+      router.replace(`https://ka-sama-community-building-app.fly.dev/create`);
+    } catch (error) {
+      console.error('Failed to copy to clipboard:', error);
+      setSuccessCopy(false);
+    }
+  }
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -65,6 +80,15 @@ export default function Home() {
         </form>
         <p className="text-blue mt-4">Here's your event description:</p>
         <p className="mt-6">{result}</p>
+        <button
+          className="btn border-transparent text-white bg-blue-500 font-bold text-xs rounded mt-2 py-1 px-2 mt-4"
+          onClick={copyToClipboard}
+        >
+          Copy to clipboard
+        </button>
+        <div className="text-blue text-xs">
+          {!!successCopy && <p>Great! Your text has been copied.</p>}
+        </div>
       </main>
     </div>
   );
